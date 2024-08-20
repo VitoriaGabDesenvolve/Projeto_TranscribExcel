@@ -9,8 +9,7 @@ No meu trabalho, surgiu a necessidade de extrair dados de um arquivo Excel, form
 
 Este projeto foi apenas inspirado em um projeto real e, portanto, possui várias diferenças, incluindo a formatação. Trata-se de um projeto simples que ainda está em desenvolvimento, então podem haver bugs no código.
 
-Optei por usar a biblioteca **Tkinter** neste projeto em Python com interface gráfica porque ela é amplamente conhecida e possui uma vasta quantidade de conteúdos e tutoriais disponíveis, o que a torna uma escolha prática. Embora os elementos visuais possam não ser os mais modernos, a facilidade de uso e a ampla documentação foram fatores decisivos na minha escolha, especialmente por ser o meu primeiro projeto com interface gráfica.
-
+Inicialmente optei por usar a biblioteca **Tkinter** neste projeto em Python com interface gráfica porque ela é amplamente conhecida e possui uma vasta quantidade de conteúdos e tutoriais disponíveis, o que a torna uma escolha prática.  Entretanto, alterei para a biblioteca Flet por ter elementos visuais atuais e bonitos. 
 
 Se surgirem dúvidas ou se você tiver alguma sugestão, não hesite em entrar em contato comigo. 
 

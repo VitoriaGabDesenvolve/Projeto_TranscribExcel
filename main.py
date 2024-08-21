@@ -1,11 +1,11 @@
 import pandas as pd
 
-def formatar(dados_excel):
-    linhas = excel.shape[0]
+def formatar(excel, nome_arquivo):
 
+    linhas = excel.shape[0] # pegar numeros de linhas
     dados = []
 
-    for linha in range(linhas):
+    for linha in range(linhas): # percorrer pelas linhas e formatar
         linha_formatada = ""
 
         for coluna in range(0, 9):
@@ -27,38 +27,39 @@ def formatar(dados_excel):
             linha_formatada += str(valor_celula)
 
         dados.append(linha_formatada)
+    
+    # escrever arquivo com as informações formatadas
 
-    with open(f'{nome_arquivo}.txt', 'w') as arquivo_txt:
+    with open(f'{nome_arquivo}.txt', 'w') as arquivo_txt: 
         for linha_formatada in dados:
             arquivo_txt.write(f"{linha_formatada}\n")
 
-    return "programa rodou perfeitamente"
+    print('sucesso')
+
+# Função que será importada na interface para executar a formatação
+
+def executarFormatacao(filename, nome_arquivo, numero_de_abas, nome_aba):
+
+    info_excel = pd.ExcelFile(filename)
+    info_abas_planilha = info_excel.sheet_names # pega quantas abas possui na planilha
+
+    if numero_de_abas == '1':
+
+        for aba in info_abas_planilha:
+            if nome_aba.lower() == aba.lower():
+                print("formatar")
+                excel = pd.read_excel(filename, sheet_name=aba)
+                formatar(excel, nome_arquivo)
+                break
+            else:
+                print("aba não encontrada")
 
 
-filename = input("Digite o nome do arquivo excel: ")
-nome_arquivo = input("Digite o nome do arquivo que será criado: ")
-numero_de_abas = int(input("1 aba - digite 1\nTodas abas - digite 2: "))
+    elif numero_de_abas == '2':
+        nome_original = nome_arquivo
 
-info_excel = pd.ExcelFile(filename)
-info_abas_planilha = info_excel.sheet_names
+        for aba in info_abas_planilha:
+            nome_arquivo = f"{nome_original}_{aba}"
 
-if numero_de_abas == 1:
-    nome_aba = input("Digite o nome da aba: ")
-
-    for aba in info_abas_planilha:
-        if nome_aba == aba:
-            print("formatar")
-            excel = pd.read_excel(filename, sheet_name=nome_aba)
-            executar = formatar(excel)
-        else:
-            print("aba não encontrada")
-
-
-elif numero_de_abas == 2:
-
-    nome_original = nome_arquivo
-    for aba in info_abas_planilha:
-        nome_arquivo = f"{nome_original}_{aba}"
-
-        excel = pd.read_excel(filename, sheet_name=aba)
-        executar = formatar(excel)
+            excel = pd.read_excel(filename, sheet_name=aba)
+            formatar(excel, nome_arquivo)

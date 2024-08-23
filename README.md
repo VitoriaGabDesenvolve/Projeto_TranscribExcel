@@ -3,7 +3,7 @@
 
 ### Origem
     
-No meu trabalho, surgiu a necessidade de extrair dados de um arquivo Excel, formatá-los de uma maneira específica e escrevê-los em um arquivo de texto. Cada linha do Excel deveria ser transformada em uma linha de texto formatada. Esse trabalho foi realizado em conjunto com meu colega de trabalho. No entanto, decidi criar meu próprio script como uma forma de aprendizado e para me aperfeiçoar para futuras atualizações deste projeto na empresa.
+Surgiu a necessidade de extrair dados de um arquivo Excel, formatá-los de uma maneira específica e escrevê-los em um arquivo de texto. Cada linha do Excel deveria ser transformada em uma linha de texto formatada.
 
 ### Sobre o Projeto
 

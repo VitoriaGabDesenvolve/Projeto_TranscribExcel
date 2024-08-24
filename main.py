@@ -2,10 +2,10 @@ import pandas as pd
 
 def formatar(excel, nome_arquivo):
 
-    linhas = excel.shape[0] # pegar numeros de linhas
+    linhas = excel.shape[0]
     dados = []
 
-    for linha in range(linhas): # percorrer pelas linhas e formatar
+    for linha in range(linhas):
         linha_formatada = ""
 
         for coluna in range(0, 9):
@@ -27,21 +27,17 @@ def formatar(excel, nome_arquivo):
             linha_formatada += str(valor_celula)
 
         dados.append(linha_formatada)
-    
-    # escrever arquivo com as informações formatadas
 
-    with open(f'{nome_arquivo}.txt', 'w') as arquivo_txt: 
+    with open(f'{nome_arquivo}.txt', 'w') as arquivo_txt:
         for linha_formatada in dados:
             arquivo_txt.write(f"{linha_formatada}\n")
 
     print('sucesso')
 
-# Função que será importada na interface para executar a formatação
-
 def executarFormatacao(filename, nome_arquivo, numero_de_abas, nome_aba):
 
     info_excel = pd.ExcelFile(filename)
-    info_abas_planilha = info_excel.sheet_names # pega quantas abas possui na planilha
+    info_abas_planilha = info_excel.sheet_names
 
     if numero_de_abas == '1':
 

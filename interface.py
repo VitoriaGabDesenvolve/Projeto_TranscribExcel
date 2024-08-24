@@ -8,8 +8,6 @@ opcao_selecionada = int
 nome_do_arquivo = str
 def main(page: ft.Page):
 
-    # Função para abrir a tela que possibilita selecionar o excel no computador
-
     def selecionar_filename(e):
         global filename
         filename = filedialog.askopenfilename()
@@ -22,11 +20,12 @@ def main(page: ft.Page):
             label_arquivo_selecionado.update()
             btn_filename.update()
 
-    # Pega e atualiza as informações a cada alteração nas entradas
+
     def pegar_dados(e):
         global opcao_selecionada, nome_do_arquivo, nome_da_aba
 
         opcao_selecionada = selecionar_abas.value
+        
         if opcao_selecionada == '1':
             entrada_nome_aba.disabled = False
             nome_da_aba = entrada_nome_aba.value
@@ -39,7 +38,8 @@ def main(page: ft.Page):
 
         return [filename, nome_do_arquivo, opcao_selecionada, nome_da_aba]
 
-
+    def fechar_dialog(e):
+        page.close(caixa_dialog)
     # Configurações da janela
 
     page.bgcolor = ft.colors.BLACK38  # cor de backgroud da janela
@@ -62,20 +62,20 @@ def main(page: ft.Page):
 
     # entrada de dados
 
-    btn_filename = ft.ElevatedButton( # Botão para selecionar excel
+    btn_filename = ft.ElevatedButton(
         text = 'Selecione o arquivo Excel',
         color = ft.colors.BLUE_500,
         on_click = selecionar_filename,
         icon= ft.icons.FILE_UPLOAD_OUTLINED
     )
 
-    label_arquivo_selecionado = ft.Text( # Label que vai aparecer quando o arquivo for selecionado
+    label_arquivo_selecionado = ft.Text(
         value=f'arquivo não foi selecionado',
         color=ft.colors.TRANSPARENT,
         size=8.5,
         text_align=ft.alignment.center)
 
-    entrada_nome_arquivo = ft.TextField( # Entrada do nome que salvara o arquivo criado pelo código
+    entrada_nome_arquivo = ft.TextField(
         label='Nome do arquivo que será criado',
         label_style= ft.TextStyle(size=13),
         text_size=13,
@@ -87,13 +87,13 @@ def main(page: ft.Page):
 
     )
 
-    label_numero_abas = ft.Text( # label
+    label_numero_abas = ft.Text(
         value='FORMATAR:',
         style=ft.TextThemeStyle.BODY_MEDIUM,
         text_align=ft.alignment.center_right
     )
 
-    selecionar_abas = ft.Dropdown( # Dropdown com as opções de formatar 1 ou todas as abas
+    selecionar_abas = ft.Dropdown(
         label= 'Selecione uma opção',
         value='2',
         label_style= ft.TextStyle(size=13),
@@ -111,7 +111,7 @@ def main(page: ft.Page):
         on_change=pegar_dados
     )
 
-    entrada_nome_aba = ft.TextField( # entrada no nome da aba, só fica abilitada se tiver a opção de 1 aba selecionada
+    entrada_nome_aba = ft.TextField(
         label='Digite o nome da Aba',
         disabled=True,
         label_style=ft.TextStyle(size=13),
@@ -123,16 +123,26 @@ def main(page: ft.Page):
         on_change=pegar_dados
     )
 
-    # função executar que pega os dados e usa a função criada no main para formatar
+
     def executar(e):
         dados = pegar_dados(e)
         executarFormatacao(dados[0], dados[1], dados[2], dados[3]),
+        page.open(caixa_dialog)
 
 
-    btn_executar = ft.ElevatedButton( # Botão para formatação
+    btn_executar = ft.ElevatedButton(
         text='Formatar',
         color=ft.colors.BLUE_500,
-        on_click=executar, # quando clicar no botão vai acionar a função executar
+        on_click=executar,
+    )
+
+    caixa_dialog = ft.AlertDialog(
+        modal=True,
+        title=ft.Text("Sucesso!"),
+        content = ft.Text("O arquivo foi txt foi criado"),
+        actions=[
+            ft.TextButton("OK", on_click=fechar_dialog)
+        ]
     )
 
     page.add(btn_filename, label_arquivo_selecionado, entrada_nome_arquivo, label_numero_abas, selecionar_abas, entrada_nome_aba, btn_executar)
